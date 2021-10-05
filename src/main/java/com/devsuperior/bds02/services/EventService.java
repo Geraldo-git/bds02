@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds02.dto.CityDTO;
 import com.devsuperior.bds02.dto.EventDTO;
 import com.devsuperior.bds02.entities.City;
 import com.devsuperior.bds02.entities.Event;
@@ -34,7 +33,7 @@ public class EventService {
 		
 	}
 	
-	/*@Transactional
+	@Transactional
 	public EventDTO update(Long id, EventDTO dto) {
 		try {
 			Event entity = repository.getOne(id);
@@ -45,19 +44,15 @@ public class EventService {
 		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
 		}		
-	}*/
+	}
 	
-	/*private void copyDtoToEntity(EventDTO dto, Event entity) {
+	private void copyDtoToEntity(EventDTO dto, Event entity) {
 
 		entity.setName(dto.getName());
 		entity.setDate(dto.getDate());
 		entity.setUrl(dto.getUrl());
-		entity.setCity(new City());
+		entity.setCity(new City(dto.getCityId(),null));
+		entity=repository.save(entity);
 		
-		entity.getCities().clear();
-		for (CityDTO cityDto : dto.getCities()) {
-			City city = cityRepository.getOne(cityDto.getId());
-			entity.getCities().add(city);			
-		}
-	}*/	
+	}	
 }
